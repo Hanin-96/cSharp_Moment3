@@ -18,7 +18,26 @@ namespace Moment3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+
+            //Guest userFirst = new Guest("Hanin", "Hej mitt namn är Hanin");
+            //Console.WriteLine(userFirst.GuestUser);
+            //Console.ReadLine();
+
+            bool isTrue = true;
+            string guestBookAdmin = "H a n i n s  G ä s t b o k";
+
+            while(isTrue)
+            {
+                //Rensar konsollen
+                Console.Clear();
+                Console.CursorVisible = false;
+                Console.WriteLine($"{guestBookAdmin.ToUpper()} \n");
+                Console.WriteLine("Tryck på följande alternativ: \n");
+                Console.WriteLine("1 : Skriv i gästboken");
+                Console.WriteLine("2 : Ta bort inlägg från gästboken \n");
+                Console.WriteLine("X : Avsluta");
+                Console.ReadLine();
+            }
         }
     }
 }
