@@ -12,6 +12,7 @@ Uppgift - Skapa en gästbok:
 - Lägga till och ta bort data(inlägg) via konsolinmatning
 - Menyval skrivs om med console.Clear för varje förändring i gästboken
 -Test2
+-Test3 git push
 */
 namespace Moment3
 {
