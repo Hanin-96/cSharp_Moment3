@@ -8,24 +8,32 @@ namespace Moment3
 {
     internal class Guest
     {
-        //Inmatning ska bestå av två fält
+        //Endast kod inom klass har åtkomst till strängarna
         private string? guestName;
         private string? guestMessage;
 
-        //Constructor
+        //Constructor utan parameter för deserialisering
+        public Guest() { }
+
+        //Constructor för instansiering
         public Guest(string aGuestName, string aGuestMessage)
         {
-            guestName = aGuestName;
-            guestMessage = aGuestMessage;
-            GuestUser = $"{guestName}: {guestMessage}";
+            GuestName = aGuestName;
+            GuestMessage = aGuestMessage;
         }
 
-
-        //Get/setter
-        public string? GuestUser
+        //Getter/Setter för gästanvändare(guestName) och inlägg(guestMessage)
+        public string? GuestName
         {
-            get;
-            set;
+            get { return guestName; }
+            set { guestName = value; }
         }
+
+        public string? GuestMessage
+        {
+            get { return guestMessage; }
+            set { guestMessage = value; }
+        }
+
     }
 }
