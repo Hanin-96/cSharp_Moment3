@@ -38,7 +38,7 @@ namespace Moment3
             while (isTrue)
             {
                 DefaultInterface(guestBook);
-                if(errorMessage!= "" && errorMessage != null)
+                if (errorMessage != "" && errorMessage != null)
                 {
                     Console.WriteLine($"{errorMessage}");
                 }
@@ -51,7 +51,6 @@ namespace Moment3
         {
             //Rensar konsollen
             Console.Clear();
-            Console.CursorVisible = false;
             Console.WriteLine($"{guestBookAdmin.ToUpper()} \n");
             Console.WriteLine("Tryck på följande alternativ: \n");
             Console.WriteLine("1 : Skriv i gästboken");
@@ -61,43 +60,86 @@ namespace Moment3
             ShowAvailableGuestBook(guestBook);
         }
 
+        //method för att visa tillgängliga inlägg i gästboken
         private static void ShowAvailableGuestBook(GuestBook guestBook)
         {
             Console.WriteLine("Följande inlägg är lagrade: \n");
 
+            //For-loop för att hämta varje gästinlägg 
             for (int i = 0; i < guestBook.GetGuests().Count; i++)
             {
                 Guest guestAvailableNow = guestBook.GetGuests()[i];
                 Console.WriteLine($"[{i}] {guestAvailableNow.GuestName} : {guestAvailableNow.GuestMessage}");
             }
+            //Räknar ut antal lagrade inlägg
             int totalCountGuests = guestBook.CountGuests();
             Console.WriteLine($"\nTotala antal lagrade inlägg: {totalCountGuests}\n");
 
 
-            
+
         }
 
         private static void UserInput(int inputValue, GuestBook guestBook)
         {
-
             switch (inputValue)
             {
                 case '1':
                     errorMessage = "";
-                    Console.CursorVisible = true;
-                    Console.Write("Ange namn: ");
-                    string? userGuestName = Console.ReadLine();
-                    Console.Write("Ange meddelande: ");
-                    string? userGuestMessage = Console.ReadLine();
-                    guestBook.AddGuest(userGuestName, userGuestMessage);
+                    bool isRunning = true;
 
+                    //Felhantering ifal tomma fält skickas in
+                    //Strängarna får ej vara tomma
+                    while (isRunning)
+                    {
+                        Console.Write("Ange namn: ");
+                        string? userGuestName = Console.ReadLine();
+
+                        Console.Write("Ange inlägg: ");
+                        string? userGuestMessage = Console.ReadLine();
+
+                        //Om namn eller 
+                        if (string.IsNullOrEmpty(userGuestName) && string.IsNullOrEmpty(userGuestMessage))
+                        {
+                            isRunning = false;
+                            errorMessage = "Du måste ange både namn och inlägg!";
+
+                        } else if(string.IsNullOrEmpty(userGuestName) || string.IsNullOrEmpty(userGuestMessage))
+                        {
+                            Console.WriteLine("Du måste ange både namn och inlägg!");
+                        }
+                        else
+                        {
+                            //Om inputs inte är tomma, kör addGuest Method och skicka in namn och inlägg
+                            isRunning = false;
+                            guestBook.AddGuest(userGuestName, userGuestMessage);
+                        }
+                    }
                     break;
+
+                case '2':
+                    errorMessage = "";
+                    Console.Write("Ange Index att radera: ");
+                    string? userIndex = Console.ReadLine();
+                    if(!string.IsNullOrEmpty(userIndex))
+                        try
+                        {
+                            guestBook.DeleteGuest(Convert.ToInt32(userIndex));
+                        }
+                        catch(Exception)
+                        {
+                            Console.WriteLine("Fel index");
+                            Console.ReadKey();
+                        }
+                    break;
+                    //Lämna och stänga ner
+                case 88:
+                    Environment.Exit(0);
+                    break;
+
                 default:
                     errorMessage = "Fel input, vänligen tryck rätt alternativ \n";
                     break;
             }
-
-
         }
     }
 }

@@ -40,9 +40,17 @@ namespace Moment3
             Guest newObject = new Guest(guestName, guestMessage);
             guests.Add(newObject);
 
-            Marshal();
+            SaveToJson();
             return newObject;
 
+        }
+
+        //Method för att radera guestIndex
+        public int DeleteGuest(int userIndex)
+        {
+            guests.RemoveAt(userIndex);
+            SaveToJson();
+            return userIndex;
         }
 
         //method för att skriva ut existerande guests list
@@ -58,8 +66,8 @@ namespace Moment3
             //Räknar ut antal
             return guestsTotal.Count;
         }
-
-        private void Marshal()
+        //Serialisering
+        private void SaveToJson()
         {
             var jsonString = JsonSerializer.Serialize(guests);
             File.WriteAllText(fileJson, jsonString);
