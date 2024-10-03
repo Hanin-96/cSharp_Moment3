@@ -14,10 +14,16 @@ Uppgift - Skapa en gästbok:
 */
 
 
+
 namespace Moment3
 {
     internal class Program
     {
+        //Skapar global error msg
+        static public string errorMessage = "";
+
+        //Skapar global namn sträng
+        static public string guestBookAdmin = "H a n i n s  G ä s t b o k";
         static void Main(string[] args)
         {
 
@@ -26,27 +32,37 @@ namespace Moment3
             //Console.ReadLine();
 
             bool isTrue = true;
-            string guestBookAdmin = "H a n i n s  G ä s t b o k";
+            //Skapar ny instans guestbook
+            GuestBook guestBook = new GuestBook();
 
             while (isTrue)
             {
-                //Rensar konsollen
-                Console.Clear();
-                Console.CursorVisible = false;
-                Console.WriteLine($"{guestBookAdmin.ToUpper()} \n");
-                Console.WriteLine("Tryck på följande alternativ: \n");
-                Console.WriteLine("1 : Skriv i gästboken");
-                Console.WriteLine("2 : Ta bort inlägg från gästboken \n");
-                Console.WriteLine("X : Avsluta \n");
-
-                ShowAvailableGuestBook();
+                DefaultInterface(guestBook);
+                if(errorMessage!= "" && errorMessage != null)
+                {
+                    Console.WriteLine($"{errorMessage}");
+                }
+                int userInputValue = (int)Console.ReadKey(true).Key;
+                UserInput(userInputValue, guestBook);
             }
         }
 
-        private static void ShowAvailableGuestBook()
+        private static void DefaultInterface(GuestBook guestBook)
         {
-            //Skapar ny instans guestbook
-            GuestBook guestBook = new GuestBook();
+            //Rensar konsollen
+            Console.Clear();
+            Console.CursorVisible = false;
+            Console.WriteLine($"{guestBookAdmin.ToUpper()} \n");
+            Console.WriteLine("Tryck på följande alternativ: \n");
+            Console.WriteLine("1 : Skriv i gästboken");
+            Console.WriteLine("2 : Ta bort inlägg från gästboken \n");
+            Console.WriteLine("X : Avsluta \n");
+
+            ShowAvailableGuestBook(guestBook);
+        }
+
+        private static void ShowAvailableGuestBook(GuestBook guestBook)
+        {
             Console.WriteLine("Följande inlägg är lagrade: \n");
 
             for (int i = 0; i < guestBook.GetGuests().Count; i++)
@@ -57,8 +73,7 @@ namespace Moment3
             int totalCountGuests = guestBook.CountGuests();
             Console.WriteLine($"\nTotala antal lagrade inlägg: {totalCountGuests}\n");
 
-            int userInputValue = (int)Console.ReadKey(true).Key;
-            UserInput(userInputValue, guestBook);
+
             
         }
 
@@ -68,6 +83,7 @@ namespace Moment3
             switch (inputValue)
             {
                 case '1':
+                    errorMessage = "";
                     Console.CursorVisible = true;
                     Console.Write("Ange namn: ");
                     string? userGuestName = Console.ReadLine();
@@ -77,7 +93,7 @@ namespace Moment3
 
                     break;
                 default:
-                    Console.WriteLine("Du har skrivit fel");
+                    errorMessage = "Fel input, vänligen tryck rätt alternativ \n";
                     break;
             }
 

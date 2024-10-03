@@ -9,7 +9,7 @@ namespace Moment3
 {
     internal class GuestBook
     {
-        private string fileJson = @"guestbook.json";
+        private string fileJson = @"json/guestbook.json";
 
         //Skapar lista som kan nås med index
         private List<Guest> guests = new List<Guest>();
@@ -18,21 +18,26 @@ namespace Moment3
         public GuestBook()
         {
             //Om JSON filen för GuestBook finns
-            if (File.Exists(fileJson) == true)
+            if (File.Exists(fileJson))
             {
-                //Läs ut data från filen
-                string jsonString = File.ReadAllText(fileJson);
+                try
+                {
+                    //Läs ut data från filen
+                    string jsonString = File.ReadAllText(fileJson);
 
-                guests = JsonSerializer.Deserialize<List<Guest>>(jsonString)!;
-            }   
+                    guests = JsonSerializer.Deserialize<List<Guest>>(jsonString)!;
+                }
+                catch
+                {
+                    guests = new List<Guest>();
+                }
+            }
         }
 
         //Method för att lägga till nya guests
-        public Guest AddGuest(string guestPerson, string guestMessage)
+        public Guest AddGuest(string guestName, string guestMessage)
         {
-            Guest newObject = new Guest(guestPerson, guestMessage);
-            newObject.GuestName = guestPerson;
-            newObject.GuestMessage = guestMessage;
+            Guest newObject = new Guest(guestName, guestMessage);
             guests.Add(newObject);
 
             Marshal();
