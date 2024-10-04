@@ -27,17 +27,15 @@ namespace Moment3
         static void Main(string[] args)
         {
 
-            //Guest userFirst = new Guest("Hanin", "Hej mitt namn är Hanin");
-            //Console.WriteLine(userFirst.GuestUser);
-            //Console.ReadLine();
-
             bool isTrue = true;
             //Skapar ny instans guestbook
             GuestBook guestBook = new GuestBook();
 
             while (isTrue)
             {
+                //Ladda default gränssnittet på konsollen
                 DefaultInterface(guestBook);
+                //Ifall errormeddelande finns, ska den skrivas ut
                 if (errorMessage != "" && errorMessage != null)
                 {
                     Console.WriteLine($"{errorMessage}");
@@ -51,12 +49,14 @@ namespace Moment3
         {
             //Rensar konsollen
             Console.Clear();
+            //Skriver ut konsoll gränssnittet
             Console.WriteLine($"{guestBookAdmin.ToUpper()} \n");
             Console.WriteLine("Tryck på följande alternativ: \n");
             Console.WriteLine("1 : Skriv i gästboken");
             Console.WriteLine("2 : Ta bort inlägg från gästboken \n");
             Console.WriteLine("X : Avsluta \n");
 
+            //Hämtar och visar tillgängliga inlägg
             ShowAvailableGuestBook(guestBook);
         }
 
@@ -83,6 +83,7 @@ namespace Moment3
         {
             switch (inputValue)
             {
+                //Ifall användare trycker 1 och skapar nytt inlägg
                 case '1':
                     errorMessage = "";
                     bool isRunning = true;
@@ -105,7 +106,8 @@ namespace Moment3
 
                         } else if(string.IsNullOrEmpty(userGuestName) || string.IsNullOrEmpty(userGuestMessage))
                         {
-                            Console.WriteLine("Du måste ange både namn och inlägg!");
+                            isRunning = false;
+                            errorMessage ="Du måste ange både namn och inlägg!";
                         }
                         else
                         {
@@ -116,6 +118,7 @@ namespace Moment3
                     }
                     break;
 
+                //Ifall användare trycker 2 vid radering av inlägg
                 case '2':
                     errorMessage = "";
                     Console.Write("Ange Index att radera: ");

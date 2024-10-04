@@ -29,6 +29,7 @@ namespace Moment3
                 }
                 catch
                 {
+                    //Skapa ny tom lista
                     guests = new List<Guest>();
                 }
             }
