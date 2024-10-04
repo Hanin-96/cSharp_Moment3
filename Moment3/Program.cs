@@ -98,16 +98,18 @@ namespace Moment3
                         Console.Write("Ange inlägg: ");
                         string? userGuestMessage = Console.ReadLine();
 
-                        //Om namn eller 
+                        //Om namn och inlägg är tomma
                         if (string.IsNullOrEmpty(userGuestName) && string.IsNullOrEmpty(userGuestMessage))
                         {
                             isRunning = false;
-                            errorMessage = "Du måste ange både namn och inlägg!";
+                            errorMessage = "Du måste ange både namn och inlägg! \nKlick på alternativ igen";
 
-                        } else if(string.IsNullOrEmpty(userGuestName) || string.IsNullOrEmpty(userGuestMessage))
+                        //Om namn eller inlägg är tomma
+                        }
+                        else if (string.IsNullOrEmpty(userGuestName) || string.IsNullOrEmpty(userGuestMessage))
                         {
                             isRunning = false;
-                            errorMessage ="Du måste ange både namn och inlägg!";
+                            errorMessage = "Du måste ange både namn och inlägg! \nKlick på alternativ igen";
                         }
                         else
                         {
@@ -123,18 +125,19 @@ namespace Moment3
                     errorMessage = "";
                     Console.Write("Ange Index att radera: ");
                     string? userIndex = Console.ReadLine();
-                    if(!string.IsNullOrEmpty(userIndex))
+                    if (!string.IsNullOrEmpty(userIndex))
                         try
                         {
+                            //radera enligt index
                             guestBook.DeleteGuest(Convert.ToInt32(userIndex));
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
                             Console.WriteLine("Fel index");
                             Console.ReadKey();
                         }
                     break;
-                    //Lämna och stänga ner
+                //Lämna och stänga ner
                 case 88:
                     Environment.Exit(0);
                     break;
