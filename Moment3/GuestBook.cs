@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace Moment3
 {
     internal class GuestBook
     {
-        private string fileJson = @"json/guestbook.json";
+        private string fileJson = @"guestbook.json";
 
         //Skapar lista som kan nås med index
         private List<Guest> guests = new List<Guest>();
@@ -33,6 +35,14 @@ namespace Moment3
                     guests = new List<Guest>();
                 }
             }
+            else
+            {
+                using (FileStream fs = File.Create(fileJson))
+                {
+                }
+                //Skapa ny tom lista
+                guests = new List<Guest>();
+            }
         }
 
         //Method för att lägga till nya guests
@@ -43,7 +53,6 @@ namespace Moment3
 
             SaveToJson();
             return newObject;
-
         }
 
         //Method för att radera guestIndex
