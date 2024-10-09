@@ -85,6 +85,7 @@ namespace Moment3
             {
                 //Ifall användare trycker 1 och skapar nytt inlägg
                 case '1':
+                    Console.Clear();
                     errorMessage = "";
                     bool isRunning = true;
 
@@ -104,7 +105,7 @@ namespace Moment3
                             isRunning = false;
                             errorMessage = "Du måste ange både namn och inlägg! \nKlick på alternativ igen";
 
-                        //Om namn eller inlägg är tomma
+                            //Om namn eller inlägg är tomma
                         }
                         else if (string.IsNullOrEmpty(userGuestName) || string.IsNullOrEmpty(userGuestMessage))
                         {
@@ -122,6 +123,9 @@ namespace Moment3
 
                 //Ifall användare trycker 2 vid radering av inlägg
                 case '2':
+                    Console.Clear();
+                    //Hämtar och visar tillgängliga inlägg
+                    ShowAvailableGuestBook(guestBook);
                     errorMessage = "";
                     Console.Write("Ange Index att radera: ");
                     string? userIndex = Console.ReadLine();
@@ -139,6 +143,7 @@ namespace Moment3
                     break;
                 //Lämna och stänga ner
                 case 88:
+                    Console.Clear();
                     Environment.Exit(0);
                     break;
 
